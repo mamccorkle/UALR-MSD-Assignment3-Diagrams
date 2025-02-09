@@ -13,10 +13,17 @@ title: Pokémon Card Storage App
 
 erDiagram
     
+    Role {
+        int roleID PK
+        bool admin
+    }
+    
     User ||--o{ DeckSet : has
+    User ||--|{ Role : is
     User {
         int userID PK
         string userName
+        bool admin FK
     }
     
     DeckSet ||--|{ Deck : contains
