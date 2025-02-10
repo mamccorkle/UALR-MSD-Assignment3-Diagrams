@@ -150,3 +150,65 @@ flowchart TD
     frontEndGraph <--> apiGraph
     apiGraph <--> backEndGraph
 ```
+
+## API Endpoints:
+```mermaid
+---
+title: API Endpoints Diagram
+---
+flowchart TB
+    client
+    backend
+    database
+    
+    subgraph httpGraph["HTTP"]
+        direction TB
+        GET
+        POST
+        DELETE
+        PUT
+    end
+
+    subgraph URLGraph["URL\n🔒 = Administrative Privilege Only"]
+    direction TB
+        subgraph get["GET"]
+            getLines["`
+                /api/auth/me				
+                /api/users/{userID}			
+                /api/users/{userID}/deckSet	
+                /api/cards					
+                /api/cards/{cardID}			
+                /api/sets					
+                /api/sets/{deckSetID}		
+                /api/search?name={cardName}	
+                /api/search?type={cardType}	
+            `"]
+        end
+        subgraph post["POST"]
+            postLines["`
+                /api/auth/register
+                /api/auth/login
+                /api/auth/logout
+                /api/users/{userID}/deck
+                /api/admin/cards    🔒
+            `"]
+        end
+        subgraph delete["DELETE"]
+            deleteLines["`
+                /api/users/{userID}/deck/{cardID}
+                /api/admin/cards/{cardID}   🔒
+            `"]
+        end
+        subgraph put["PUT"]
+            puLines["`
+                /api/users/{userID}/deck/{cardID}
+                /api/admin/cards/{cardID}   🔒
+            `"]
+        end
+    end
+    
+    client <--> httpGraph
+    httpGraph <--> URLGraph
+    URLGraph <--> backend
+    backend <--> database
+```
