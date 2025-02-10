@@ -52,7 +52,7 @@ erDiagram
 
 ```
 
-## Flow Diagram:
+## Flow:
 ```mermaid
 ---
 title: Flow Diagram
@@ -110,4 +110,43 @@ flowchart TB
         admin --> approveCard["Approve Card"]
         admin --> rejectCard["Reject Card"]
     end
+```
+
+## System Architecture:
+```mermaid
+---
+title: System Architecture Diagram
+---
+flowchart TD
+    subgraph frontEndGraph["Front End"]
+        subgraph ClientGraph[" "]
+            webClient["Web Client"]
+            mobileClient["Mobile"]
+        end
+    end
+    
+    subgraph thirdPartyFrontEndAPIGraph["3rd Party API"]
+        bootstrap["Bootstrap"]
+        react["React"]
+    end
+    
+    subgraph apiGraph["API"]
+        django["Django"]
+    end
+    
+    subgraph backEndGraph["Back End"]
+        subgraph database["Database"]
+            mysql["MySQL Database"]
+        end
+        subgraph thirdPartyBackEndAPIGraph["3rd Party API"]
+            authentication["Authentication"]
+            search["Search"]
+            businessLogic["Business Logic"]
+        end
+        
+    end
+    
+    frontEndGraph <--> thirdPartyFrontEndAPIGraph
+    frontEndGraph <--> apiGraph
+    apiGraph <--> backEndGraph
 ```
